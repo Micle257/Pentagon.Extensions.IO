@@ -1,0 +1,431 @@
+<?xml version="1.0"
+      encoding='UTF-8'
+      standalone='no' ?>
+
+<score-partwise version="3.0"
+                xmlns="http://www.music.com/MusicXML"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xsi:schemaLocation="http://www.music.com/MusicXML musicxml.xsd">
+  <work>
+    <work-title>title</work-title>
+  </work>
+  <identification>
+    <creator type="composer">compos</creator>
+    <creator type="arranger">arrange</creator>
+    <creator type="lyricist">lyrics</creator>
+    <rights>Copyright © </rights>
+    <encoding>
+      <encoding-date>2017-11-09</encoding-date>
+      <encoder>Michal</encoder>
+      <software>Sibelius 7.5.0</software>
+      <software>Direct export, not from Dolet</software>
+    </encoding>
+  </identification>
+  <part-list>
+    <part-group type="start"
+                number="1">
+      <group-symbol>brace</group-symbol>
+    </part-group>
+    <score-part id="P1">
+      <part-name>Piano</part-name>
+      <part-name-display>
+        <display-text>Piano</display-text>
+      </part-name-display>
+      <part-abbreviation>Pno.</part-abbreviation>
+      <part-abbreviation-display>
+        <display-text>Pno.</display-text>
+      </part-abbreviation-display>
+      <score-instrument id="P1-I1">
+        <instrument-name>Piano (2)</instrument-name>
+        <instrument-sound>keyboard.piano.grand</instrument-sound>
+        <solo />
+        <virtual-instrument>
+          <virtual-library>General MIDI</virtual-library>
+          <virtual-name>Acoustic Piano</virtual-name>
+        </virtual-instrument>
+      </score-instrument>
+    </score-part>
+    <part-group type="stop"
+                number="1" />
+    <score-part id="P3">
+      <part-name>Violoncello</part-name>
+      <part-name-display>
+        <display-text>Violoncello</display-text>
+      </part-name-display>
+      <part-abbreviation>Vc.</part-abbreviation>
+      <part-abbreviation-display>
+        <display-text>Vc.</display-text>
+      </part-abbreviation-display>
+      <score-instrument id="P3-I1">
+        <instrument-name>Violoncello (2)</instrument-name>
+        <instrument-sound>strings.cello</instrument-sound>
+        <ensemble />
+        <virtual-instrument>
+          <virtual-library>General MIDI</virtual-library>
+          <virtual-name>Cello ensemble</virtual-name>
+        </virtual-instrument>
+      </score-instrument>
+    </score-part>
+  </part-list>
+  <part id="P1">
+    <!--============== Part: P1, Measure: 1 ==============-->
+    <measure number="1">
+      <attributes>
+        <divisions>256</divisions>
+        <key>
+          <fifths>0</fifths>
+          <mode>major</mode>
+        </key>
+        <time>
+          <beats>4</beats>
+          <beat-type>4</beat-type>
+        </time>
+        <staves>2</staves>
+        <clef number="1">
+          <sign>G</sign>
+          <line>2</line>
+        </clef>
+        <clef number="2">
+          <sign>F</sign>
+          <line>4</line>
+        </clef>
+        <staff-details number="1" />
+        <staff-details number="2" />
+      </attributes>
+      <direction>
+        <direction-type>
+          <wedge type="crescendo" />
+        </direction-type>
+        <staff>1</staff>
+      </direction>
+      <note>
+        <pitch>
+          <step>D</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>256</duration>
+        <instrument id="P1-I1" />
+        <voice>1</voice>
+        <type>quarter</type>
+        <staff>1</staff>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>256</duration>
+        <instrument id="P1-I1" />
+        <voice>1</voice>
+        <type>quarter</type>
+        <staff>1</staff>
+      </note>
+      <note>
+        <pitch>
+          <step>C</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>256</duration>
+        <instrument id="P1-I1" />
+        <voice>1</voice>
+        <type>quarter</type>
+        <staff>1</staff>
+      </note>
+      <direction>
+        <direction-type>
+          <wedge />
+        </direction-type>
+        <offset sound="no">255</offset>
+        <staff>1</staff>
+      </direction>
+      <note>
+        <pitch>
+          <step>A</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>256</duration>
+        <instrument id="P1-I1" />
+        <voice>1</voice>
+        <type>quarter</type>
+        <staff>1</staff>
+      </note>
+      <backup>
+        <duration>1024</duration>
+      </backup>
+      <note>
+        <pitch>
+          <step>B</step>
+          <octave>2</octave>
+        </pitch>
+        <duration>1024</duration>
+        <instrument id="P1-I1" />
+        <voice>2</voice>
+        <type>whole</type>
+        <staff>2</staff>
+      </note>
+    </measure>
+    <!--============== Part: P1, Measure: 2 ==============-->
+    <measure number="2">
+      <attributes />
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>512</duration>
+        <instrument id="P1-I1" />
+        <voice>1</voice>
+        <type>half</type>
+
+        <staff>1</staff>
+        <notations>
+          <articulations>
+            <accent />
+          </articulations>
+        </notations>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>512</duration>
+        <instrument id="P1-I1" />
+        <voice>1</voice>
+        <type>half</type>
+
+        <staff>1</staff>
+      </note>
+      <backup>
+        <duration>1024</duration>
+      </backup>
+      <note>
+        <pitch>
+          <step>C</step>
+          <octave>3</octave>
+        </pitch>
+        <duration>1024</duration>
+        <instrument id="P1-I1" />
+        <voice>2</voice>
+        <type>whole</type>
+        <staff>2</staff>
+      </note>
+    </measure>
+    <!--============== Part: P1, Measure: 3 ==============-->
+    <measure number="3">
+      <attributes />
+      <note>
+        <pitch>
+          <step>E</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>1024</duration>
+        <instrument id="P1-I1" />
+        <voice>1</voice>
+        <type>whole</type>
+        <staff>1</staff>
+        <notations>
+          <articulations>
+            <tenuto />
+          </articulations>
+        </notations>
+      </note>
+      <barline>
+        <bar-style>light-heavy</bar-style>
+      </barline>
+      <backup>
+        <duration>1024</duration>
+      </backup>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>2</octave>
+        </pitch>
+        <duration>1024</duration>
+        <instrument id="P1-I1" />
+        <voice>2</voice>
+        <type>whole</type>
+        <staff>2</staff>
+      </note>
+    </measure>
+  </part>
+  <part id="P3">
+    <!--============== Part: P3, Measure: 1 ==============-->
+    <measure number="1">
+      <attributes>
+        <divisions>256</divisions>
+        <key>
+          <fifths>0</fifths>
+          <mode>major</mode>
+        </key>
+        <time>
+          <beats>4</beats>
+          <beat-type>4</beat-type>
+        </time>
+        <staves>1</staves>
+        <clef number="1">
+          <sign>F</sign>
+          <line>4</line>
+        </clef>
+      </attributes>
+      <note>
+        <pitch>
+          <step>C</step>
+          <octave>3</octave>
+        </pitch>
+        <duration>256</duration>
+        <instrument id="P3-I1" />
+        <voice>1</voice>
+        <type>quarter</type>
+
+        <staff>1</staff>
+      </note>
+      <note>
+        <pitch>
+          <step>E</step>
+          <octave>3</octave>
+        </pitch>
+        <duration>256</duration>
+        <instrument id="P3-I1" />
+        <voice>1</voice>
+        <type>quarter</type>
+
+        <staff>1</staff>
+      </note>
+      <note>
+        <pitch>
+          <step>C</step>
+          <octave>3</octave>
+        </pitch>
+        <duration>256</duration>
+        <instrument id="P3-I1" />
+        <voice>1</voice>
+        <type>quarter</type>
+
+        <staff>1</staff>
+      </note>
+      <note>
+        <pitch>
+          <step>B</step>
+          <octave>2</octave>
+        </pitch>
+        <duration>256</duration>
+        <instrument id="P3-I1" />
+        <voice>1</voice>
+        <type>quarter</type>
+
+        <staff>1</staff>
+      </note>
+    </measure>
+    <!--============== Part: P3, Measure: 2 ==============-->
+    <measure number="2">
+      <note>
+        <pitch>
+          <step>F</step>
+          <octave>2</octave>
+        </pitch>
+        <duration>256</duration>
+        <instrument id="P3-I1" />
+        <voice>1</voice>
+        <type>quarter</type>
+
+        <staff>1</staff>
+      </note>
+      <note>
+        <pitch>
+          <step>C</step>
+          <octave>2</octave>
+        </pitch>
+        <duration>256</duration>
+        <instrument id="P3-I1" />
+        <voice>1</voice>
+        <type>quarter</type>
+
+        <staff>1</staff>
+      </note>
+      <note>
+        <pitch>
+          <step>C</step>
+          <octave>1</octave>
+        </pitch>
+        <duration>256</duration>
+        <instrument id="P3-I1" />
+        <voice>1</voice>
+        <type>quarter</type>
+
+        <staff>1</staff>
+      </note>
+      <note>
+        <pitch>
+          <step>C</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>256</duration>
+        <instrument id="P3-I1" />
+        <voice>1</voice>
+        <type>quarter</type>
+
+        <staff>1</staff>
+      </note>
+    </measure>
+    <!--============== Part: P3, Measure: 3 ==============-->
+    <measure number="3">
+      <note>
+        <pitch>
+          <step>C</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>256</duration>
+        <instrument id="P3-I1" />
+        <voice>1</voice>
+        <type>quarter</type>
+
+        <staff>1</staff>
+        <notations>
+          <articulations>
+            <staccato />
+          </articulations>
+        </notations>
+      </note>
+      <note>
+        <pitch>
+          <step>C</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>256</duration>
+        <instrument id="P3-I1" />
+        <voice>1</voice>
+        <type>quarter</type>
+
+        <staff>1</staff>
+      </note>
+      <note>
+        <pitch>
+          <step>B</step>
+          <octave>3</octave>
+        </pitch>
+        <duration>256</duration>
+        <instrument id="P3-I1" />
+        <voice>1</voice>
+        <type>quarter</type>
+
+        <staff>1</staff>
+      </note>
+      <note>
+        <pitch>
+          <step>E</step>
+          <octave>3</octave>
+        </pitch>
+        <duration>256</duration>
+        <instrument id="P3-I1" />
+        <voice>1</voice>
+        <type>quarter</type>
+
+        <staff>1</staff>
+      </note>
+      <barline>
+        <bar-style>light-heavy</bar-style>
+      </barline>
+    </measure>
+  </part>
+</score-partwise>
