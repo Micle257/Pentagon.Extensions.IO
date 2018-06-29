@@ -1,4 +1,11 @@
-﻿namespace Pentagon.Extensions.IO.Wav.Sampling.Samples {
+﻿// -----------------------------------------------------------------------
+//  <copyright file="Sample64BitFloating.cs">
+//   Copyright (c) Michal Pokorný. All Rights Reserved.
+//  </copyright>
+// -----------------------------------------------------------------------
+
+namespace Pentagon.Extensions.IO.Wav.Sampling.Samples
+{
     using System;
 
     public class Sample64BitFloating : ISample
