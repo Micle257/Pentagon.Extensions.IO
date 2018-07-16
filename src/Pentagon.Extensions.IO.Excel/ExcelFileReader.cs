@@ -8,60 +8,68 @@ namespace Pentagon.Extensions.IO.Excel
 {
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
-    using System.Reflection;
-    using System.Runtime.InteropServices;
-    using NetOffice.ExcelApi;
-    using NetOffice.ExcelApi.Enums;
+    using ClosedXML.Excel;
+    using JetBrains.Annotations;
 
     public class ExcelFileReader : IExcelFileReader, IDisposable
     {
-        readonly string _fileName;
-        readonly Application _app;
-        readonly Workbook _workBook;
-        readonly Stack<object> _comObjects = new Stack<object>();
+        string _fileName;
+
+        [NotNull]
+        readonly XLWorkbook _workBook;
 
         public ExcelFileReader(string fileName)
         {
-            _fileName = fileName;
-            _app = new Application();
-            _app.Visible = false;
-            _workBook = _app.Workbooks.Open(_fileName);
-        }
+            if (string.IsNullOrWhiteSpace(fileName))
+            {
+                throw new ArgumentException("File name must be valid path.", nameof(fileName));
+            }
 
-        ~ExcelFileReader()
-        {
-            ReleaseUnmanagedResources();
+            _fileName = Path.GetFullPath(fileName);
+
+            _workBook = new XLWorkbook(_fileName);
         }
 
         /// <inheritdoc />
-        public void Dispose()
+        public void CopyRange(string @from, string to, uint sheetNumber = 1)
         {
-            ReleaseUnmanagedResources();
-            GC.SuppressFinalize(this);
+            var ws = _workBook.Worksheet((int)sheetNumber);
+
+            var fromRange = ws.Range(from);
+            var toRange = ws.Range(to);
+
+            ws.Cell(to).Value = fromRange;
         }
 
+        /// <inheritdoc />
+        public void CutRange(string from, string to, uint sheetNumber = 1)
+        {
+            var ws = _workBook.Worksheet((int)sheetNumber);
+
+            CopyRange(from, to, sheetNumber);
+
+            ws.Cell(from).Clear();
+        }
+
+        /// <inheritdoc />
         public void AdjustColumnsWidth(uint sheetNumber = 1)
         {
-            var sheet = _workBook.Sheets[sheetNumber] as Worksheet;
-            var range = sheet.UsedRange;
-            range.Columns.AutoFit();
+            var ws = _workBook.Worksheet((int)sheetNumber);
 
-            _comObjects.Push(sheet);
-            _comObjects.Push(range);
+            ws.Columns().AdjustToContents();
         }
 
         /// <inheritdoc />
         public void SetColumnWidth(string column, double width, uint sheetNumber = 1)
         {
-            var sheet = _workBook.Sheets[sheetNumber] as Worksheet;
-            var range = sheet.Cells[1, column];
-            range.ColumnWidth = width;
+            var ws = _workBook.Worksheet((int)sheetNumber);
 
-            _comObjects.Push(sheet);
-            _comObjects.Push(range);
+            ws.Column(column).Width = width;
         }
 
+        /// <inheritdoc />
         public IList<string> GetColumnData(uint rowNumber, string column, uint sheetNumber = 1)
         {
             if (rowNumber <= 0)
@@ -71,50 +79,46 @@ namespace Pentagon.Extensions.IO.Excel
                 throw new ArgumentException(message: "The column format is invalid. Use format [a-zA-Z]+");
 
             var result = new List<string>();
-            var sheet = _workBook.Sheets[sheetNumber] as Worksheet;
-            var range = sheet.UsedRange;
 
-            var sheetRowCount = range.Rows.Count;
+            var ws = _workBook.Worksheet((int)sheetNumber);
+            var range = ws.RangeUsed();
+
+            var sheetRowCount = range.RowCount();
 
             var dataRowCount = sheetRowCount - (rowNumber - 1);
 
-            var cellRange = sheet.get_Range($"{column}{rowNumber}:{column}{rowNumber + dataRowCount}", Missing.Value);
+            var cellRange = ws.Range($"{column}{rowNumber}", $"{column}{rowNumber + dataRowCount}");
 
-            foreach (var o in cellRange)
+            foreach (var o in cellRange.RowsUsed())
             {
-                if (o.Text != null)
-                    result.Add(o.Text as string ?? o.Text.ToString());
+                if (string.IsNullOrEmpty(o.ToString()))
+                    result.Add(o.ToString());
             }
-
-            _comObjects.Push(sheet);
-            _comObjects.Push(range);
-            _comObjects.Push(cellRange);
 
             return result;
         }
 
         /// <inheritdoc />
-        public IList<IList<string>> GetRangeValues(ExcelCellLocation cell, uint columnSpan, uint sheetNumber = 1)
+        public IList<IList<string>> GetRangeValues(ExcelCellLocation cell, uint columnSpan = 0, uint sheetNumber = 1)
         {
             var result = new List<IList<string>>();
 
-            var sheet = _workBook.Sheets[sheetNumber] as Worksheet;
-            var range = sheet.UsedRange;
-            var rowCount = range.Rows.Count;
+            var ws = _workBook.Worksheet((int)sheetNumber);
+            var range = ws.RangeUsed();
+            var rowCount = range.RowCount();
             var dataRowCount = rowCount - (cell.Row - 1);
-            var cellRange = sheet.get_Range($"{cell}", $"{cell.Column + columnSpan}{cell.Row + dataRowCount}");
 
-            foreach (var o in cellRange.Rows)
+            var cellRange = ws.Range($"{cell}", $"{cell.Column + columnSpan}{cell.Row + dataRowCount}");
+
+            foreach (var o in cellRange.RowsUsed())
             {
                 var innerList = new List<string>();
-                foreach (var col in o.Columns)
-                    innerList.Add(col.Text as string ?? col.Text?.ToString());
+                foreach (var c in o.Cells())
+                {
+                    innerList.Add(c.ToString());
+                }
                 result.Add(innerList);
             }
-
-            _comObjects.Push(sheet);
-            _comObjects.Push(range);
-            _comObjects.Push(cellRange);
 
             return result;
         }
@@ -124,110 +128,64 @@ namespace Pentagon.Extensions.IO.Excel
         {
             var result = new List<IDictionary<string, string>>();
 
-            var sheet = _workBook.Sheets[sheetNumber] as Worksheet;
-            var range = sheet.UsedRange;
-            var rowCount = range.Rows.Count;
+            var ws = _workBook.Worksheet((int)sheetNumber);
+            var range = ws.RangeUsed();
+            var rowCount = range.RowCount();
             var dataRowCount = rowCount - (cell.Row - 1);
 
-            var lastColumn = new ExcelCellLocation(column: "A", row: 1).IncrementColumn(range.Columns.Count).IncrementRow(range.Rows.Count);
-            object to = columnSpan == 0 ? lastColumn.ToString() : $"{cell.Column + columnSpan}{cell.Row + dataRowCount}";
-            var cellRange = sheet.get_Range($"{cell}", to);
+            var lastColumn = new ExcelCellLocation("A", 1).IncrementColumn(range.ColumnCount()).IncrementRow(range.RowCount());
+            lastColumn = ExcelCellLocation.Parse(ws.LastCellUsed().ToString());
+            var to = columnSpan == 0 ? lastColumn.ToString() : $"{cell.Column + columnSpan}{cell.Row + dataRowCount}";
+            var cellRange = ws.Range($"{cell}", to);
 
-            foreach (var o in cellRange.Rows)
+            foreach (var o in cellRange.RowsUsed())
             {
-                var count = 0;
                 var innerList = new Dictionary<string, string>();
-                foreach (var col in o.Columns)
+                foreach (var col in o.Cells())
                 {
-                    innerList.Add(cell.IncrementColumn(count).Column, col.Text as string ?? col.Text?.ToString());
-                    count++;
+                    innerList.Add(col.Address.ColumnLetter, col.ToString());
                 }
-
                 result.Add(innerList);
             }
-
-            _comObjects.Push(sheet);
-            _comObjects.Push(range);
-            _comObjects.Push(cellRange);
 
             return result;
         }
 
-        public void CutRange(string from, string to, uint sheetNumber = 1)
+        /// <inheritdoc />
+        public void Save()
         {
-            var sheet = _workBook.Sheets[sheetNumber] as Worksheet;
-            var rangeFrom = sheet.get_Range(from);
-            var rangeTo = sheet.get_Range(to);
-            rangeFrom.Cut(rangeTo);
-
-            _comObjects.Push(sheet);
-            _comObjects.Push(rangeTo);
-            _comObjects.Push(rangeFrom);
+            _workBook.Save();
         }
 
-        public void CopyRange(string from, string to, uint sheetNumber = 1)
-        {
-            var sheet = _workBook.Sheets[sheetNumber] as Worksheet;
-            var rangeFrom = sheet.get_Range(from);
-            var rangeTo = sheet.get_Range(to);
-            rangeFrom.Copy(rangeTo);
-
-            _comObjects.Push(sheet);
-            _comObjects.Push(rangeTo);
-            _comObjects.Push(rangeFrom);
-        }
-
-        public void Save() => _workBook.Save();
-
+        /// <inheritdoc />
         public void SetCell(string cell, string value, uint sheetNumber = 1)
         {
-            var sheet = _workBook.Sheets[sheetNumber] as Worksheet;
-            var range = sheet.get_Range(cell);
-            range.Value = value;
-
-            _comObjects.Push(range);
-            _comObjects.Push(sheet);
+            var ws = _workBook.Worksheet((int)sheetNumber);
+            var c = ws.Cell(cell);
+            c.Value = value;
         }
 
         /// <inheritdoc />
         public void MergeCells(ExcelCellRange range, uint sheetNumber = 1)
         {
-            var sheet = _workBook.Sheets[sheetNumber] as Worksheet;
-            var sheetRange = sheet.get_Range(range.FirstCell.ToString(), range.SecondCell.ToString());
-            sheetRange.Merge();
-
-            _comObjects.Push(sheet);
-            _comObjects.Push(sheetRange);
+            var ws = _workBook.Worksheet((int)sheetNumber);
+            ws.Range(range.FirstCell.ToString(), range.SecondCell.ToString()).Merge();
         }
 
         /// <inheritdoc />
         public void CenterCells(ExcelCellRange range, uint sheetNumber = 1)
         {
-            var sheet = _workBook.Sheets[sheetNumber] as Worksheet;
-            var sheetRange = sheet.get_Range(range.FirstCell.ToString(), range.SecondCell.ToString());
-            sheetRange.HorizontalAlignment = XlHAlign.xlHAlignCenterAcrossSelection;
-            sheetRange.VerticalAlignment = XlVAlign.xlVAlignCenter;
+            var ws = _workBook.Worksheet((int)sheetNumber);
+            var r = ws.Range(range.FirstCell.ToString(), range.SecondCell.ToString());
 
-            _comObjects.Push(sheet);
-            _comObjects.Push(sheetRange);
+            r.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+            r.Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
         }
 
-        void ReleaseUnmanagedResources()
+        /// <inheritdoc />
+        public void Dispose()
         {
-            GC.Collect();
-            GC.WaitForPendingFinalizers();
-
-            for (var i = 0; i < _comObjects.Count; i++)
-            {
-                var obj = _comObjects.Pop();
-                Marshal.ReleaseComObject(obj);
-            }
-
-            _workBook.Close();
-            Marshal.ReleaseComObject(_workBook);
-
-            _app.Quit();
-            Marshal.ReleaseComObject(_app);
+            _workBook.Dispose();
         }
     }
 }
