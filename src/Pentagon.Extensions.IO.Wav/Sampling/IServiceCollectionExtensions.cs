@@ -1,4 +1,11 @@
-﻿namespace Pentagon.Extensions.IO.Wav.Sampling {
+﻿// -----------------------------------------------------------------------
+//  <copyright file="IServiceCollectionExtensions.cs">
+//   Copyright (c) Michal Pokorný. All Rights Reserved.
+//  </copyright>
+// -----------------------------------------------------------------------
+
+namespace Pentagon.Extensions.IO.Wav.Sampling
+{
     using Microsoft.Extensions.DependencyInjection;
 
     public static class IServiceCollectionExtensions

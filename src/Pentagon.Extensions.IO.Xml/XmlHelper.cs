@@ -9,7 +9,7 @@ namespace Pentagon.Extensions.IO.Xml
     using System.IO;
     using System.Xml;
     using System.Xml.Serialization;
-
+	
     public class XmlHelper
     {
         public static T Deserialize<T>(string xmlValue)

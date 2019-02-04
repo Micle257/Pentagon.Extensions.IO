@@ -4,10 +4,11 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <Authors>Michal Pokorný</Authors>
     <Company />
-    <Product>Pentagon IO - Wav</Product>
-    <Description>Library for working with WAV format.</Description>
+    <Product>Pentagon.Extensions.IO.Excel</Product>
+    <Description>...</Description>
     <Copyright>Copyright (c) Michal Pokorný. All Rights Reserved.</Copyright>
-    <Version>1.2.1</Version>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Version>1.0.2</Version>
     <LangVersion>7.3</LangVersion>
   </PropertyGroup>
 
@@ -21,10 +22,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="ClosedXML" Version="0.94.2" />
     <PackageReference Include="JetBrains.Annotations" Version="2018.3.0" PrivateAssets="All" />
-    <PackageReference Include="Microsoft.Extensions.Options" Version="2.2.0" />
-    <PackageReference Include="Pentagon.Common" Version="1.6.1" />
-    <PackageReference Include="Pentagon.Maths" Version="1.4.1" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.2.0" />
   </ItemGroup>
 
 </Project>
