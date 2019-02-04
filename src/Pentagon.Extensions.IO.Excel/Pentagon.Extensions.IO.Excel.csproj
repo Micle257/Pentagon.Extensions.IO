@@ -9,7 +9,7 @@
     <Copyright>Copyright (c) Michal Pokorný. All Rights Reserved.</Copyright>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Version>1.0.1</Version>
-    <LangVersion>7.2</LangVersion>
+    <LangVersion>7.3</LangVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -22,9 +22,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="ClosedXML" Version="0.93.0" />
-    <PackageReference Include="JetBrains.Annotations" Version="11.1.0" PrivateAssets="All" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.1.1" />
+    <PackageReference Include="ClosedXML" Version="0.94.2" />
+    <PackageReference Include="JetBrains.Annotations" Version="2018.3.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.2.0" />
   </ItemGroup>
 
 </Project>

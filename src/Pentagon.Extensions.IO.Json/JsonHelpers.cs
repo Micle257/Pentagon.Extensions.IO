@@ -6,6 +6,7 @@
 
 namespace Pentagon.Extensions.IO.Json
 {
+    using System;
     using JetBrains.Annotations;
     using Newtonsoft.Json;
 
@@ -25,7 +26,9 @@ namespace Pentagon.Extensions.IO.Json
         /// <returns> A string representation the Json object. </returns>
         public static string Serialize([NotNull] object value)
         {
-            Require.NotNull(() => value);
+            if (value == null)
+                throw new ArgumentNullException(nameof(value));
+
             return JsonConvert.SerializeObject(value, DefaultJsonSettings);
         }
 
@@ -34,7 +37,9 @@ namespace Pentagon.Extensions.IO.Json
         /// <returns> A object obtained from Json string. </returns>
         public static T Deserialize<T>([NotNull] string value)
         {
-            Require.NotNull(() => value);
+            if (value == null)
+                throw new ArgumentNullException(nameof(value));
+
             return JsonConvert.DeserializeObject<T>(value, DefaultJsonSettings);
         }
 

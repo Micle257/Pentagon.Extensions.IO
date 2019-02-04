@@ -13,6 +13,7 @@ namespace Pentagon.Extensions.IO.Json
     using Newtonsoft.Json;
 
     public class EnumJsonConverter<T> : JsonConverter
+            where T : Enum
     {
         /// <inheritdoc />
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
