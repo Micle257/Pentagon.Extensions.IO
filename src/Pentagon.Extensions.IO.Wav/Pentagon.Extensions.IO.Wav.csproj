@@ -1,5 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
+  
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Authors>Michal Pokorný</Authors>
@@ -7,24 +7,36 @@
     <Product>Pentagon IO - Wav</Product>
     <Description>Library for working with WAV format.</Description>
     <Copyright>Copyright (c) Michal Pokorný. All Rights Reserved.</Copyright>
-    <Version>1.2.1</Version>
+    <Version>1.5.0</Version>
     <LangVersion>7.3</LangVersion>
   </PropertyGroup>
-
+  
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <OutputPath>..\..\build\$(AssemblyName)\</OutputPath>
     <DocumentationFile>..\..\build\$(AssemblyName)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
   </PropertyGroup>
-
+  
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <OutputPath>..\..\debug\$(AssemblyName)\</OutputPath>
   </PropertyGroup>
-
+  
   <ItemGroup>
-    <PackageReference Include="JetBrains.Annotations" Version="2018.3.0" PrivateAssets="All" />
+    <PackageReference Include="JetBrains.Annotations" Version="2019.1.1" PrivateAssets="All" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="2.2.0" />
-    <PackageReference Include="Pentagon.Common" Version="1.6.1" />
     <PackageReference Include="Pentagon.Maths" Version="1.4.1" />
   </ItemGroup>
-
+  
+  <Choose>
+    <When Condition="'$(SolutionPath)'=='C:\Users\Michal\Source\Pentagon.All.sln' AND '$(Configuration)'=='Debug'">
+      <ItemGroup>
+        <ProjectReference Include="..\..\..\Pentagon.Common\src\Pentagon.Common\Pentagon.Common.csproj" />
+      </ItemGroup>
+    </When>
+    <Otherwise>
+      <ItemGroup>
+        <PackageReference Include="Pentagon.Common" Version="1.6.4" />
+      </ItemGroup>
+    </Otherwise>
+  </Choose>
+  
 </Project>

@@ -4,11 +4,11 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <Authors>Michal Pokorný</Authors>
     <Company />
-    <Product>Pentagon IO - JSON</Product>
+    <Product>Pentagon IO - XML</Product>
     <Description>...</Description>
     <Copyright>Copyright (c) Michal Pokorný. All Rights Reserved.</Copyright>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Version>1.1.1</Version>
+    <Version>1.5.0</Version>
     <LangVersion>7.3</LangVersion>
   </PropertyGroup>
 
@@ -22,9 +22,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="JetBrains.Annotations" Version="2018.3.0" PrivateAssets="All" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
-    <PackageReference Include="Pentagon.Common" Version="1.6.1" />
+    <PackageReference Include="JetBrains.Annotations" Version="2019.1.1" PrivateAssets="All" />
   </ItemGroup>
 
 </Project>
