@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<assembly name="Pentagon.Extensions.IO.Excel">
+  <member name="M:Pentagon.Extensions.IO.Excel.ExcelCellLocation.#ctor(System.String,System.UInt32)">
+    <parameter name="column">
+      <attribute ctor="M:JetBrains.Annotations.NotNullAttribute.#ctor" />
+    </parameter>
+  </member>
+</assembly>

@@ -11,6 +11,7 @@ namespace Pentagon.Extensions.IO.Wav
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
+    using JetBrains.Annotations;
     using Sampling;
     using Sampling.Samples;
 
@@ -57,6 +58,7 @@ namespace Pentagon.Extensions.IO.Wav
 
         public IDictionary<ushort, IList<ISample>> ChannelSampleMap { get; } = new ConcurrentDictionary<ushort, IList<ISample>>();
 
+        [NotNull]
         public byte[] GetFileBytes()
         {
             var list = new List<byte>(ChunkDescriptor());
