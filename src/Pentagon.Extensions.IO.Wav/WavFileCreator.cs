@@ -25,6 +25,7 @@ namespace Pentagon.Extensions.IO.Wav
         }
 
         public IWavFileConstructor Constructor { get; }
+
         public WavFileDeconstructor Deconstructor { get; private set; }
 
         public void Create()
